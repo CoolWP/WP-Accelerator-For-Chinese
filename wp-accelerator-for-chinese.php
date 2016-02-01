@@ -99,8 +99,8 @@ if (!class_exists('WP_AcceleratorForChinese')) {
 				require_once 'includes/o.php';
 
 				/* Hooks */
-				add_action('admin_init', array('WP_AcceleratorForChinese_o', 'register_settings'));
-				add_action('admin_menu', array('WP_AcceleratorForChinese_o', 'add_settings_page'));
+				add_action('admin_init', array('SpeedUP4CN_o', 'register_settings'));
+				add_action('admin_menu', array('SpeedUP4CN_o', 'add_settings_page'));
 				add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(__CLASS__, 'add_action_link'));
 			}
 			add_action('wp_head', array($this, 'debugger'), 0);
