@@ -7,5 +7,5 @@
 *   自定义是否启用 emoji ;
 *   如果启用 emoji, 可自定义是采用 WordPress默认的BASE URI (由于某种神秘原因,s.w.org 通常会是404或者很慢),还是采用自定义的 BASE URI.
 *   防止自ping;
-*   组织 pingback.ping .
+*   阻止 pingback.ping .
 
