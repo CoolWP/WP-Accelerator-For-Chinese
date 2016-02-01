@@ -2,6 +2,7 @@
 [WordPress Accelerator for Chinese](http://coolwp.com/wp-accelerator-for-chinese.html)
 
 *   自定义 jQuery 以及 jQuery Migrate 的URL;
+*   自定义是否清理头部输出;
 *   前后台字体优化;
 *   可选地移除 WordPress 自身以及其默认主推(2014-2016)加载的谷歌字体;
 *   自定义是否启用 emoji ;
