@@ -10,3 +10,6 @@
 *   防止自ping;
 *   阻止 pingback.ping .
 
+## 设置页面截图
+
+![WordPress Accelerator for Chinese 的设置页面](https://raw.githubusercontent.com/CoolWP/WP-Accelerator-For-Chinese/master/screenshot-1.jpg "WordPress Accelerator for Chinese 的设置页面")
