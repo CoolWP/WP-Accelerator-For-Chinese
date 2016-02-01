@@ -1,14 +1,8 @@
 <?php
 /**
- * @author: suifengtec coolwp.com
- * @date:   2016-01-31 13:15:27
- * @last Modified by:   suifengtec coolwp.com
- * @last Modified time: 2016-02-01 14:53:08
- */
-/**
- * Plugin Name: SpeedUP for Chinese
- * Plugin URI: http://coolwp.com/speedup-for-chinese.html
- * Description: Description.
+ * Plugin Name: WordPress Accelerator for Chinese
+ * Plugin URI: http://coolwp.com/wp-accelerator-for-chinese.html
+ * Description: WordPress Accelerator for Chinese.
  * Version: 0.9.0
  * Author: suifengtec
  * Author URI:  http://coolwp.com
@@ -23,9 +17,9 @@
 
 defined('ABSPATH') || exit;
 
-if (!class_exists('SpeedUP4CN')) {
+if (!class_exists('WP_AcceleratorForChinese')) {
 
-	class SpeedUP4CN {
+	class WP_AcceleratorForChinese {
 
 		protected static $_instance = null;
 		protected $is_debug = false;
@@ -64,10 +58,6 @@ if (!class_exists('SpeedUP4CN')) {
 				'logo' => 0,
 				'enable_emoji' => 0,
 				'emoji' => '//twemoji.maxcdn.com/72x72/',
-				/*			'dirs' => 'wp-content,wp-includes',
-					'excludes' => '.php',
-					'relative' => 1,
-				*/
 			));
 
 			$this->o = $this->get_options();
@@ -125,8 +115,8 @@ if (!class_exists('SpeedUP4CN')) {
 				require_once 'includes/o.php';
 
 				/* Hooks */
-				add_action('admin_init', array('SpeedUP4CN_o', 'register_settings'));
-				add_action('admin_menu', array('SpeedUP4CN_o', 'add_settings_page'));
+				add_action('admin_init', array('WP_AcceleratorForChinese_o', 'register_settings'));
+				add_action('admin_menu', array('WP_AcceleratorForChinese_o', 'add_settings_page'));
 				add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(__CLASS__, 'add_action_link'));
 			}
 			add_action('wp_head', array($this, 'debugger'), 0);
@@ -386,7 +376,7 @@ return $visible;
 		}
 
 	} /*//CLASS*/
-	$GLOBALS['SpeedUP4CN'] = SpeedUP4CN::instance();
+	$GLOBALS['WP_AcceleratorForChinese'] = WP_AcceleratorForChinese::instance();
 
 }
 /*
