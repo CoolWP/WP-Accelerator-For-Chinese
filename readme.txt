@@ -1,4 +1,4 @@
-=== WordPress Accelerator for Chinese ===
+=== WP Accelerator for Chinese ===
 Contributors: suifengtec
 Donate link: http://coolwp.com/wp-accelerator-for-chinese.html
 Tags: speedup, accelerator

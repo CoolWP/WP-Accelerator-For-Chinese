@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WordPress Accelerator for Chinese
+ * Plugin Name: WP Accelerator for Chinese
  * Plugin URI: http://coolwp.com/wp-accelerator-for-chinese.html
  * Description: WordPress Accelerator for Chinese.
  * Version: 0.9.0
