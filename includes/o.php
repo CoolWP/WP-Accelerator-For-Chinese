@@ -3,7 +3,7 @@
  * @author: suifengtec coolwp.com
  * @date:   2016-01-31 14:20:42
  * @last Modified by:   suifengtec coolwp.com
- * @last Modified time: 2016-02-01 15:22:47
+ * @last Modified time: 2016-02-02 04:08:17
  */
 
 defined('ABSPATH') || exit;
@@ -109,9 +109,9 @@ $ss
             <form method="post" action="options.php">
             <?php
 
-			global $SpeedUP4CN;
+			global $WP_AcceleratorForChinese;
 			settings_fields('speedup4cn');
-			$options = $SpeedUP4CN->get_options();
+			$options = $WP_AcceleratorForChinese->get_options();
 
 			?>
                 <table class="form-table">
