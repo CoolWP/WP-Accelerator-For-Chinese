@@ -14,24 +14,24 @@ WordPress Accelerator for Chinese
 
 WordPress Accelerator for Chinese.
 
-*   ×Ô¶¨Òå jQuery ÒÔ¼° jQuery Migrate µÄURL;
-*   ×Ô¶¨ÒåÊÇ·ñÇåÀíÍ·²¿Êä³ö;
-*   Ç°ºóÌ¨×ÖÌåÓÅ»¯;
-*   ¿ÉÑ¡µØÒÆ³ı WordPress ×ÔÉíÒÔ¼°ÆäÄ¬ÈÏÖ÷Ìâ(2014-2016)¼ÓÔØµÄ¹È¸è×ÖÌå;
-*   ×Ô¶¨ÒåÊÇ·ñÆôÓÃ emoji ;
-*   Èç¹ûÆôÓÃ emoji, ¿É×Ô¶¨ÒåÊÇ²ÉÓÃ WordPressÄ¬ÈÏµÄBASE URI (ÓÉÓÚÄ³ÖÖÉñÃØÔ­Òò,s.w.org Í¨³£»áÊÇ404»òÕßºÜÂı),»¹ÊÇ²ÉÓÃ×Ô¶¨ÒåµÄ BASE URI.
-*   ·ÀÖ¹×Ôping;
-*   ×èÖ¹ pingback.ping .
+*   è‡ªå®šä¹‰ jQuery ä»¥åŠ jQuery Migrate çš„URL;
+*   è‡ªå®šä¹‰æ˜¯å¦æ¸…ç†å¤´éƒ¨è¾“å‡º;
+*   å‰åå°å­—ä½“ä¼˜åŒ–;
+*   å¯é€‰åœ°ç§»é™¤ WordPress è‡ªèº«ä»¥åŠå…¶é»˜è®¤ä¸»é¢˜(2014-2016)åŠ è½½çš„è°·æ­Œå­—ä½“;
+*   è‡ªå®šä¹‰æ˜¯å¦å¯ç”¨ emoji ;
+*   å¦‚æœå¯ç”¨ emoji, å¯è‡ªå®šä¹‰æ˜¯é‡‡ç”¨ WordPressé»˜è®¤çš„BASE URI (ç”±äºæŸç§ç¥ç§˜åŸå› ,s.w.org é€šå¸¸ä¼šæ˜¯404æˆ–è€…å¾ˆæ…¢),è¿˜æ˜¯é‡‡ç”¨è‡ªå®šä¹‰çš„ BASE URI.
+*   é˜²æ­¢è‡ªping;
+*   é˜»æ­¢ pingback.ping .
 == Installation ==
 
 
-¾ÍÏñ°²×°ÆäËü²å¼şÄÇÑù°²×°²¢ÆôÓÃ£¬ÔÚ²å¼şÁĞ±í¸Ã²å¼şÏÂÓĞ"ÉèÖÃ"°´Å¥£¬µ½ÉèÖÃÒ³Ãæ½øĞĞÏÂÉèÖÃ£¬¾ÍĞĞÁË¡£
+å°±åƒå®‰è£…å…¶å®ƒæ’ä»¶é‚£æ ·å®‰è£…å¹¶å¯ç”¨ï¼Œåœ¨æ’ä»¶åˆ—è¡¨è¯¥æ’ä»¶ä¸‹æœ‰"è®¾ç½®"æŒ‰é’®ï¼Œåˆ°è®¾ç½®é¡µé¢è¿›è¡Œä¸‹è®¾ç½®ï¼Œå°±è¡Œäº†ã€‚
 
 Install and activated it as normal, you will find a "Setting" button under this plugin on the plugins screen.
 
 == Frequently Asked Questions ==
 
-[ÏîÄ¿Ö÷Ò³](http://coolwp.com/wp-accelerator-for-chinese.html)
+[é¡¹ç›®ä¸»é¡µ](http://coolwp.com/wp-accelerator-for-chinese.html)
 
 == Screenshots ==
 
