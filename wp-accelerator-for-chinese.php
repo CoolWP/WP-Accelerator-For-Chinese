@@ -35,12 +35,8 @@ if (!class_exists('WP_AcceleratorForChinese')) {
 		public function __wakeup() {}
 
 		public function __construct() {
-/* uninstall */
 			register_uninstall_hook(__FILE__, array(__CLASS__, 'handle_uninstall_hook'));
-
-/* activation */
 			register_activation_hook(__FILE__, array($this, 'handle_activation_hook'));
-			$this->is_debug = false;
 			add_action('plugins_loaded', array($this, 'plugins_loaded'));
 
 		}
@@ -94,18 +90,6 @@ if (!class_exists('WP_AcceleratorForChinese')) {
 				remove_action('template_redirect', 'wp_shortlink_header', 11);
 			}
 
-			/*
-
-				            do_action_ref_array( 'wp_default_scripts', array(&$this) );
-				            add_action( 'wp_default_scripts', 'wp_default_scripts' );
-				            function wp_default_scripts( &$scripts ) {
-
-				            }
-
-				            'secure' => (string) ( 'https' === parse_url( site_url(), PHP_URL_SCHEME ) )
-
-			*/
-
 			if (!$this->o['enable_emoji'] && !empty($this->o['emoji'])) {
 				add_filter('emoji_url', array($this, 'emoji_url'));
 			}
@@ -127,30 +111,8 @@ if (!class_exists('WP_AcceleratorForChinese')) {
 			add_action('wp_dashboard_setup', array(__CLASS__, 'dashboard_widgets'), 11);
 			add_filter('get_user_option_screen_layout_dashboard', array(__CLASS__, 'one_column_layout', 11));
 
-			/*	add_filter('contextual_help', array(__CLASS__, 'remove_dashboard_help_tab', 999, 3));
-			add_filter('screen_options_show_screen', array(__CLASS__, 'remove_help_tab'));*/
-			/*TODO
-				apply_filters('script_loader_src', includes_url("js/wp-emoji-release.min.js?$version"), 'concatemoji');
-			*/
 		}
-/*		public static function remove_dashboard_help_tab($old_help, $screen_id, $screen) {
-if ('dashboard' != $screen->base) {
-return $old_help;
-}
 
-$screen->remove_help_tabs();
-return $old_help;
-}
-
-public static function remove_help_tab($visible) {
-global $current_screen;
-return false;
-if ('dashboard' == $current_screen->base) {
-return false;
-}
-
-return $visible;
-}*/
 		public static function one_column_layout($cols) {
 			if (current_user_can('basic_contributor')) {
 				return 1;
@@ -161,13 +123,8 @@ return $visible;
 		public static function dashboard_widgets() {
 			global $wp_meta_boxes;
 
-			// yoast seo
-			unset($wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget']);
-			// gravity forms
-			//unset($wp_meta_boxes['dashboard']['normal']['core']['rg_forms_dashboard']);
-
 			//remove_meta_box('dashboard_activity', 'dashboard', 'normal');
-			/*			remove_meta_box('dashboard_right_now', 'dashboard', 'normal'); // Right Now
+			remove_meta_box('dashboard_right_now', 'dashboard', 'normal'); // Right Now
 			remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); // Recent Comments
 			remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal'); // Incoming Links
 			remove_meta_box('dashboard_plugins', 'dashboard', 'normal'); // Plugins
@@ -175,10 +132,12 @@ return $visible;
 			remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side'); // Recent Drafts
 			remove_meta_box('dashboard_primary', 'dashboard', 'side'); // WordPress blog
 			remove_meta_box('dashboard_secondary', 'dashboard', 'side'); // Other WordPress News
-			update_user_meta(get_current_user_id(), 'show_welcome_panel', false);*/
 
-			$wp_meta_boxes['dashboard']['normal']['core'] = array();
-			$wp_meta_boxes['dashboard']['side']['core'] = array();
+			// yoast seo
+			unset($wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget']);
+			// gravity forms
+			//unset($wp_meta_boxes['dashboard']['normal']['core']['rg_forms_dashboard']);
+			update_user_meta(get_current_user_id(), 'show_welcome_panel', false);
 
 		}
 
@@ -206,7 +165,11 @@ return $visible;
 			}
 
 		}
-
+		/**
+		 * Change emoji BASE URI.
+		 * @param  [type] $base [description]
+		 * @return [type]       [description]
+		 */
 		public function emoji_url($base) {
 
 			$base = set_url_scheme($this->o['emoji']);
@@ -214,10 +177,17 @@ return $visible;
 			return $base;
 
 		}
+		/**
+		 * Prepare.
+		 * @return [type] [description]
+		 */
 		public function handle_activation_hook() {
 			add_option('speedup4cn', $this->defaults_o);
 		}
-
+		/**
+		 * Bye!
+		 * @return [type] [description]
+		 */
 		public static function handle_uninstall_hook() {
 			delete_option('speedup4cn');
 		}
@@ -225,6 +195,10 @@ return $visible;
 		public function get_options() {
 			return wp_parse_args(get_option('speedup4cn'), $this->defaults_o);
 		}
+		/**
+		 * Setting btn.
+		 * @param [type] $data [description]
+		 */
 		public static function add_action_link($data) {
 			// check permission
 			if (!current_user_can('manage_options')) {
@@ -262,6 +236,10 @@ return $visible;
 
 		}
 
+		/**
+		 * X DNX Prefetch.
+		 * @return [type] [description]
+		 */
 		public function debugger() {
 			/*
 
@@ -275,9 +253,6 @@ return $visible;
 
 		}
 
-		public function remove_feed_link() {
-
-		}
 		public static function change_admin_font_f() {
 
 			?>
@@ -286,13 +261,21 @@ return $visible;
               <?php
 
 		}
+		/**
+		 * Remove WP Logo From admin bar.
+		 * @param  [type] $wp_admin_bar [description]
+		 * @return [type]               [description]
+		 */
 		public static function remove_wp_logo_from_admin_bar($wp_admin_bar) {
 
 			$wp_admin_bar->remove_node('wp-logo');
 
 		}
 
-		/*Change the default meta widget*/
+		/**
+		 * Clean the default meta widget.
+		 * @return [type] [description]
+		 */
 		public static function remove_widgets() {
 
 			unregister_widget('WP_Widget_Meta');
@@ -300,6 +283,14 @@ return $visible;
 			register_widget('WP_Widget_Meta_Mod');
 
 		}
+		/**
+		 * Remove fonts load by default themes.
+		 * @param  [type] $translations [description]
+		 * @param  [type] $text         [description]
+		 * @param  [type] $context      [description]
+		 * @param  [type] $domain       [description]
+		 * @return [type]               [description]
+		 */
 		public static function remove_default_google_fonts($translations, $text, $context, $domain) {
 			if (
 
@@ -309,18 +300,30 @@ return $visible;
 				/*for twentyfifteen*/
 				|| ('Noto Sans font: on or off' == $context && 'on' == $text)
 				|| ('Noto Serif font: on or off' == $context && 'on' == $text)
+				/*for twentysixteen*/
 				|| ('Inconsolata font: on or off' == $context && 'on' == $text)
+				|| ('Merriweather font: on or off' == $context && 'on' == $text)
+				|| ('Montserrat font: on or off' == $context && 'on' == $text)
 			) {
 				$translations = 'off';
 			}
 			return $translations;
 		}
-
+		/**
+		 * Remove the "?ver=x.x.x" from links of scripts.
+		 * @param  [type] $src    [description]
+		 * @param  [type] $handle [description]
+		 * @return [type]         [description]
+		 */
 		public static function script_loader_src($src, $handle) {
 
 			return remove_query_arg('ver', $src);
 
 		}
+		/**
+		 * Misc.
+		 * @return [type] [description]
+		 */
 		public function init() {
 
 			//remove_meta_box($id, 'dashboard', $context);
@@ -364,7 +367,11 @@ return $visible;
 
 			}
 		}
-
+		/**
+		 * Remove emoji helper.
+		 * @param  [type] $plugins [description]
+		 * @return [type]          [description]
+		 */
 		public static function enable_emojis_tinymce($plugins) {
 
 			if (is_array($plugins)) {
@@ -378,61 +385,4 @@ return $visible;
 	} /*//CLASS*/
 	$GLOBALS['WP_AcceleratorForChinese'] = WP_AcceleratorForChinese::instance();
 
-}
-/*
-Okay, You can  code your awesome plugin now!
- */
-add_action('init', 'fdgrrygreyhrthj');
-function fdgrrygreyhrthj() {
-
-	/*
-		$test[$handle] = array(
-			'src' => $src,
-			'handle' => $handle,
-
-		);
-		update_option('test2', $test);
-
-	 */
-	//$a = get_option('test2');
-	/*
-	array(1) {
-	[0]=>
-	array(2) {
-	["src"]=>
-	string(48) "http://staticcdn.com/wp-includes/js/json2.min.js"
-	["handle"]=>
-	string(5) "json2"
-	}
-	}
-	array(1) {
-	[0]=>
-	array(2) {
-	["src"]=>
-	string(51) "http://staticcdn.com/wp-includes/js/wp-embed.min.js"
-	["handle"]=>
-	string(8) "wp-embed"
-	}
-	}
-
-	array(1) {
-	[0]=>
-	array(2) {
-	["src"]=>
-	string(51) "http://staticcdn.com/wp-includes/css/editor.min.css"
-	["handle"]=>
-	string(14) "editor-buttons"
-	}
-
-	array(1) {
-	[0]=>
-	array(2) {
-	["src"]=>
-	string(44) "http://staticcdn.com/wp-admin/css/ie.min.css"
-	["handle"]=>
-	string(2) "ie"
-	}
-	}
-*/
-	//var_dump($a);
 }
