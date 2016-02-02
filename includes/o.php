@@ -3,14 +3,14 @@
  * @author: suifengtec coolwp.com
  * @date:   2016-01-31 14:20:42
  * @last Modified by:   suifengtec coolwp.com
- * @last Modified time: 2016-02-02 04:08:17
+ * @last Modified time: 2016-02-03 04:10:21
  */
 
 defined('ABSPATH') || exit;
 
-if (!class_exists('SpeedUP4CN_o')) {
+if (!class_exists('WP_AcceleratorForChinese_o')) {
 
-	class SpeedUP4CN_o {
+	class WP_AcceleratorForChinese_o {
 
 		/**
 		 * register settings
