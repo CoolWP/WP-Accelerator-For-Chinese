@@ -3,7 +3,7 @@
  * @author: suifengtec coolwp.com
  * @date:   2016-01-31 14:20:42
  * @last Modified by:   suifengtec coolwp.com
- * @last Modified time: 2016-02-03 04:10:21
+ * @last Modified time: 2016-02-03 16:34:56
  */
 
 defined('ABSPATH') || exit;
@@ -11,14 +11,6 @@ defined('ABSPATH') || exit;
 if (!class_exists('WP_AcceleratorForChinese_o')) {
 
 	class WP_AcceleratorForChinese_o {
-
-		/**
-		 * register settings
-		 *
-		 * @since   0.0.1
-		 * @change  0.0.1
-		 */
-
 		public static function register_settings() {
 			register_setting(
 				'speedup4cn',
@@ -29,21 +21,28 @@ if (!class_exists('WP_AcceleratorForChinese_o')) {
 				)
 			);
 		}
-
-		/**
-		 * validation of settings
-		 *
-		 * @since   0.0.1
-		 * @change  0.0.1
-		 *
-		 * @param   array  $data  array with form data
-		 * @return  array         array with validated values
-		 */
-
+        public static function add_settings_page() {
+            $page = add_options_page(
+                '静态加速',
+                '静态加速',
+                'manage_options',
+                'speedup4cn',
+                array(
+                    __CLASS__,
+                    'settings_page',
+                )
+            );
+        }
 		public static function validate_settings($data) {
+
+            $bing_cache_hour  =  (int) ($data['bing_cache_hour']);
+            if($bing_cache_hour<1){
+                 $bing_cache_hour  =  1;
+            }
+            if($bing_cache_hour>24){
+                 $bing_cache_hour  =  24;
+            }
 			$ss = apply_filters('speedup4cn_validate_settings', array(
-				'jquery' => sanitize_text_field($data['jquery']),
-				'jquery_migrate' => sanitize_text_field($data['jquery_migrate']),
 				'enable_emoji' => (int) ($data['enable_emoji']),
 				'emoji' => sanitize_text_field($data['emoji']),
 				'open_sans' => (int) ($data['open_sans']),
@@ -52,58 +51,22 @@ if (!class_exists('WP_AcceleratorForChinese_o')) {
 				'yahei' => (int) ($data['yahei']),
 				'ver_info' => (int) ($data['ver_info']),
 				'meta_widget' => (int) ($data['meta_widget']),
-				'logo' => (int) ($data['logo']),
+                'logo' => (int) ($data['logo']),
+                'bing' => (int) ($data['bing']),
+				'bing_cache_hour' => $bing_cache_hour,
 			));
 			if (isset($data['meta_widget1'])) {
 				$ss['meta_widget1'] = (int) ($data['meta_widget1']);
 			}
 
-/*			die(
-var_dump(
-$ss
-)
-);
- */
-
 			return $ss;
 		}
 
-		/**
-		 * add settings page
-		 *
-		 * @since   0.0.1
-		 * @change  0.0.1
-		 */
 
-		public static function add_settings_page() {
-			$page = add_options_page(
-				'静态加速',
-				'静态加速',
-				'manage_options',
-				'speedup4cn',
-				array(
-					__CLASS__,
-					'settings_page',
-				)
-			);
-		}
-
-		/**
-		 * settings page
-		 *
-		 * @since   0.0.1
-		 * @change  0.0.1
-		 *
-		 * @return  void
-		 */
 
 		public static function settings_page() {
 			?>
-            <style>
-    p.description{
-        max-width: 25em;
-    }
-            </style>
+            <style> p.description{max-width: 25em; }</style>
         <div class="wrap">
             <h2>静态加速</h2>
             <form method="post" action="options.php">
@@ -122,37 +85,7 @@ $ss
                     </tr>
                     <tr valign="top">
                         <th scope="row">
-                           jQuery链接
-                        </th>
-                        <td>
-                            <fieldset>
-                                <label for="speedup4cn_jquery">
-                                    <input type="text" name="speedup4cn[jquery]" id="speedup4cn_jquery" value="<?php echo $options['jquery']; ?>" size="256" class="regular-text code" />
-                                </label>
-                                <p class="description">
-                                  末尾不带 <code>/</code>的jQuery链接。
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">
-                           jQuery Migrate 链接
-                        </th>
-                        <td>
-                            <fieldset>
-                                <label for="speedup4cn_jquery_migrate">
-                                    <input type="text" name="speedup4cn[jquery_migrate]" id="speedup4cn_jquery" value="<?php echo $options['jquery_migrate']; ?>" size="256" class="regular-text code" />
-                                </label>
-                                <p class="description">
-                                  末尾不带 <code>/</code>的jQuery Migrate链接。
-                                </p>
-                            </fieldset>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row">
-                          Emoji 表情的base url
+                          Emoji 表情的base uri
                         </th>
                         <td>
                             <fieldset>
@@ -210,13 +143,13 @@ $ss
                     </tr>
                     <tr valign="top">
                         <th scope="row">
-                            后台默认为雅黑字体
+                            前后台默认为雅黑字体
                         </th>
                         <td>
                             <fieldset>
                                 <label for="speedup4cn_yahei">
                                     <input type="checkbox" name="speedup4cn[yahei]" id="speedup4cn_yahei" value="1" <?php checked(1, $options['yahei'])?> />
-                                    是否移在后台默认采用微软雅黑、宋体细黑字体。
+                                    是否移在前后台默认采用微软雅黑、宋体细黑字体。
                                 </label>
                                 <p class="description"></p>
                             </fieldset>
@@ -230,7 +163,7 @@ $ss
                             <fieldset>
                                 <label for="speedup4cn_head_cleaner">
                                     <input type="checkbox" name="speedup4cn[head_cleaner]" id="speedup4cn_head_cleaner" value="1" <?php checked(1, $options['head_cleaner'])?> />
-                                    是否移WordPress加载在head部分的HTML输出:<code>wp_generator</code>、<code>wlwmanifest_link</code>、<code>rsd_link</code>、<code>wp_shortlink_wp_head</code>、<code>wp_shortlink_header</code>。
+                                    是否移除WordPress加载在head部分的HTML输出:<code>wp_generator</code>、<code>wlwmanifest_link</code>、<code>rsd_link</code>、<code>wp_shortlink_wp_head</code>、<code>wp_shortlink_header</code>。
                                 </label>
                                 <p class="description"></p>
                             </fieldset>
@@ -278,6 +211,34 @@ $ss
                             </fieldset>
                         </td>
                     </tr>
+                    <tr valign="top">
+                        <th scope="row">
+                        是否使用 Bing 每日一图作为默认登录页面的背景图
+                        </th>
+                        <td>
+                            <fieldset>
+                                <label for="speedup4cn_bing">
+                                    <input type="checkbox" name="speedup4cn[bing]" id="speedup4cn_bing" value="1" <?php checked(1, $options['bing'])?> />
+                                   是否使用 Bing 每日一图作为默认登录页面的背景图
+                                </label>
+                                <p class="description"></p>
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row">
+                       Bing 每日一图 的链接缓存时间
+                        </th>
+                        <td>
+                            <fieldset>
+                                <label for="speedup4cn_bing_cache_hour">
+                                    <input type="number" name="speedup4cn[bing_cache_hour]" id="speedup4cn_bing_cache_hour" value="<?php echo $options['bing_cache_hour']; ?>" min="1" max="24" step="1"/>
+                                   小时
+                                </label>
+                                <p class="description"></p>
+                            </fieldset>
+                        </td>
+                    </tr>
                 </table>
                 <?php do_action('speedup4cn_after_settings', $options);?>
                 <?php submit_button()?>
@@ -287,6 +248,3 @@ $ss
 	}
 
 }
-/*
-Okay, You can  code your awesome plugin now!
- */
